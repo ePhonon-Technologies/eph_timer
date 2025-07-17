@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Project = () => {
+  const navigate = useNavigate();
+
   const projects = [
     {
       name: "Website Redesign",
@@ -30,8 +32,17 @@ const Project = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-6xl mx-auto bg-white p-10 rounded-3xl shadow-xl">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-800 to-purple-700 p-8">
+      <div className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md p-10 rounded-3xl shadow-xl relative">
+        {/* ❌ Cross Button to go back */}
+        <button
+          onClick={() => navigate('/employee')}
+          className="absolute top-6 right-6 text-gray-600 hover:text-red-600 text-2xl font-bold"
+          title="Back to Dashboard"
+        >
+          &times;
+        </button>
+
         <h2 className="text-3xl font-extrabold text-gray-800 mb-8 text-center border-b pb-4">
           📋 Project Details
         </h2>
@@ -68,16 +79,6 @@ const Project = () => {
               </span>
             </div>
           ))}
-        </div>
-
-        {/* Back to Dashboard Button */}
-        <div className="mt-10 text-center">
-          <Link
-            to="/employee"
-            className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-medium py-2 px-6 rounded-xl transition shadow"
-          >
-            ← Back to Dashboard
-          </Link>
         </div>
       </div>
     </div>

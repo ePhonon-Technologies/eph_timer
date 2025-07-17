@@ -13,8 +13,8 @@ const EmployeeDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-6">
-      <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl p-10 relative">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-800 to-purple-700 p-6 text-gray-900">
+      <div className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-10 relative">
         <button
           onClick={handleLogout}
           className="absolute top-6 right-6 bg-red-500 hover:bg-red-600 text-white px-4 py-2 text-sm font-medium rounded-lg shadow"

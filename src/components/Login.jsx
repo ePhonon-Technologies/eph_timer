@@ -112,10 +112,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-teal-500 to-cyan-500 px-4">
-      <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md space-y-6">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-800 to-purple-700 px-4">
+      <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-md space-y-6">
 
-        {/* Header Title */}
         <h2 className="text-3xl font-bold text-center text-gray-800">
           {isRegisterMode
             ? '📝 Create New Profile'
@@ -128,7 +127,6 @@ const Login = () => {
             : 'Timesheet Management System'}
         </h2>
 
-        {/* Create Profile */}
         {isRegisterMode && (
           <form onSubmit={handleRegister} className="space-y-5 animate-fade-in">
             <div className="border rounded-xl bg-gray-50 p-6 shadow-inner">
@@ -138,7 +136,7 @@ const Login = () => {
                   type="text"
                   value={registerName}
                   onChange={(e) => setRegisterName(e.target.value)}
-                  className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-full border border-gray-300 px-4 py-2 rounded-lg"
                   placeholder="John Doe"
                 />
               </div>
@@ -148,7 +146,7 @@ const Login = () => {
                   type="email"
                   value={registerEmail}
                   onChange={(e) => setRegisterEmail(e.target.value)}
-                  className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-full border border-gray-300 px-4 py-2 rounded-lg"
                   placeholder="email@example.com"
                 />
               </div>
@@ -158,7 +156,7 @@ const Login = () => {
                   type="password"
                   value={registerPassword}
                   onChange={(e) => setRegisterPassword(e.target.value)}
-                  className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-full border border-gray-300 px-4 py-2 rounded-lg"
                   placeholder="Create a password"
                 />
               </div>
@@ -167,40 +165,30 @@ const Login = () => {
                 <select
                   value={registerRole}
                   onChange={(e) => setRegisterRole(e.target.value)}
-                  className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-full border border-gray-300 px-4 py-2 rounded-lg"
                 >
                   <option value="">-- Select Role --</option>
                   <option value="employee">👷 Employee</option>
                   <option value="admin">🧑‍💼 Admin</option>
                 </select>
               </div>
-
               {registerRole && (
                 <div className="mt-3 text-center text-sm text-indigo-600 font-medium">
                   Selected: {registerRole === 'admin' ? '🧑‍💼 Admin' : '👷 Employee'}
                 </div>
               )}
             </div>
-
-            <button
-              type="submit"
-              className="w-full bg-green-600 text-white py-2 rounded-xl font-semibold hover:bg-green-700 transition"
-            >
+            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-xl font-semibold hover:bg-green-700 transition">
               Create Profile
             </button>
             <div className="text-center">
-              <button
-                type="button"
-                className="text-sm text-gray-600 hover:underline"
-                onClick={() => setIsRegisterMode(false)}
-              >
+              <button type="button" className="text-sm text-gray-600 hover:underline" onClick={() => setIsRegisterMode(false)}>
                 ← Back to Login
               </button>
             </div>
           </form>
         )}
 
-        {/* Login Mode */}
         {!isRegisterMode && !isResetMode && (
           <>
             <div>
@@ -215,7 +203,6 @@ const Login = () => {
                 <option value="admin">🧑‍💼 Admin</option>
               </select>
             </div>
-
             {role && (
               <form onSubmit={handleLogin} className="space-y-4 animate-fade-in">
                 <input
@@ -233,26 +220,15 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="text-right text-sm">
-                  <button
-                    type="button"
-                    className="text-teal-600 hover:underline"
-                    onClick={() => setIsResetMode(true)}
-                  >
+                  <button type="button" className="text-teal-600 hover:underline" onClick={() => setIsResetMode(true)}>
                     Forgot password?
                   </button>
                 </div>
-                <button
-                  type="submit"
-                  className="w-full bg-teal-600 text-white py-2 rounded-xl hover:bg-teal-700"
-                >
+                <button type="submit" className="w-full bg-teal-600 text-white py-2 rounded-xl hover:bg-teal-700">
                   Login
                 </button>
                 <div className="text-center mt-2">
-                  <button
-                    type="button"
-                    className="text-sm text-indigo-600 hover:underline"
-                    onClick={() => setIsRegisterMode(true)}
-                  >
+                  <button type="button" className="text-sm text-indigo-600 hover:underline" onClick={() => setIsRegisterMode(true)}>
                     ➕ Create New Profile
                   </button>
                 </div>
@@ -261,7 +237,6 @@ const Login = () => {
           </>
         )}
 
-        {/* Reset Password Flow */}
         {isResetMode && !isOtpSent && !isOtpVerified && (
           <form onSubmit={handleReset} className="space-y-4 animate-fade-in">
             <input
@@ -275,11 +250,7 @@ const Login = () => {
               Send OTP
             </button>
             <div className="text-center">
-              <button
-                type="button"
-                className="text-sm text-gray-600 hover:underline"
-                onClick={() => setIsResetMode(false)}
-              >
+              <button type="button" className="text-sm text-gray-600 hover:underline" onClick={() => setIsResetMode(false)}>
                 ← Back to Login
               </button>
             </div>
@@ -299,18 +270,12 @@ const Login = () => {
             <div className="text-center text-sm text-gray-500">
               {timer > 0 ? `OTP expires in ${timer}s` : 'OTP expired'}
             </div>
-            <button
-              onClick={handleVerifyOtp}
-              className="w-full bg-teal-600 text-white py-2 rounded-xl"
-            >
+            <button onClick={handleVerifyOtp} className="w-full bg-teal-600 text-white py-2 rounded-xl">
               Verify OTP
             </button>
             {canResend && (
               <div className="text-center">
-                <button
-                  onClick={handleResendOtp}
-                  className="text-sm text-indigo-600 hover:underline"
-                >
+                <button onClick={handleResendOtp} className="text-sm text-indigo-600 hover:underline">
                   Resend OTP
                 </button>
               </div>
@@ -334,10 +299,7 @@ const Login = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <button
-              type="submit"
-              className="w-full bg-green-600 text-white py-2 rounded-xl"
-            >
+            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-xl">
               Reset Password
             </button>
           </form>

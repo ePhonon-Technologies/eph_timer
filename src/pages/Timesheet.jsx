@@ -44,11 +44,10 @@ const Timesheet = () => {
 
   const handleAddEntry = () => {
     const { project, assignedTo, startDateTime, endDateTime, status, description } = newEntry;
-
     if (project && assignedTo && startDateTime && endDateTime && status && description) {
       const start = new Date(startDateTime);
       const end = new Date(endDateTime);
-      const diff = (end - start) / (1000 * 60 * 60); // in hours
+      const diff = (end - start) / (1000 * 60 * 60);
 
       if (diff <= 0) {
         alert("End time must be after start time.");
@@ -80,6 +79,13 @@ const Timesheet = () => {
     }
   };
 
+  const handleDeleteEntry = (indexToDelete) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this entry?");
+    if (confirmDelete) {
+      setData(data.filter((_, index) => index !== indexToDelete));
+    }
+  };
+
   const getStatusStyles = (status) => {
     switch (status) {
       case "Completed":
@@ -97,24 +103,23 @@ const Timesheet = () => {
   const pendingProjects = [...new Set(data.filter(d => d.status === "Pending").map(d => d.project))];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-8">
-      <div className="max-w-5xl mx-auto bg-white p-10 rounded-3xl shadow-xl">
-        {/* Back Button */}
-        <div className="flex justify-end mb-6">
-          <button
-            onClick={() => navigate('/employee')}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-xl transition"
-          >
-            ← Back to Dashboard
-          </button>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-800 to-purple-700 p-8">
+      <div className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md p-10 rounded-3xl shadow-xl relative">
 
-        {/* Header */}
+        {/* Back to Dashboard */}
+        <button
+          onClick={() => navigate('/employee')}
+          className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-2xl font-bold"
+          title="Back to Dashboard"
+        >
+          &times;
+        </button>
+
         <div className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-teal-700 tracking-tight">
             🕒 Your <span className="text-gray-800">Timesheet</span> Overview
           </h2>
-          <p className="text-gray-600 mt-2 font-bold text-lg max-w-2xl mx-auto">
+          <p className="text-gray-700 mt-2 font-bold text-lg max-w-2xl mx-auto">
             Track time across roles and projects effectively.
           </p>
         </div>
@@ -128,6 +133,7 @@ const Timesheet = () => {
               <th className="p-4 font-semibold">Hours</th>
               <th className="p-4 font-semibold">Date</th>
               <th className="p-4 font-semibold">Status</th>
+              <th className="p-4 font-semibold">Action</th>
             </tr>
           </thead>
           <tbody className="bg-white">
@@ -143,9 +149,17 @@ const Timesheet = () => {
                       {entry.status}
                     </span>
                   </td>
+                  <td className="p-4">
+                    <button
+                      onClick={() => handleDeleteEntry(index)}
+                      className="text-red-600 hover:text-red-800 font-semibold text-sm"
+                    >
+                      🗑 Delete
+                    </button>
+                  </td>
                 </tr>
                 <tr className="bg-gray-50 border-b">
-                  <td colSpan="5" className="p-4 text-sm text-gray-700 italic">
+                  <td colSpan="6" className="p-4 text-sm text-gray-700 italic">
                     💬 <span className="font-medium">Description:</span> {entry.description}
                   </td>
                 </tr>
@@ -166,10 +180,17 @@ const Timesheet = () => {
 
         {/* Entry Form */}
         {showForm && (
-          <div className="mt-10 bg-gray-50 p-6 rounded-xl shadow-inner">
+          <div className="mt-10 bg-gray-50 p-6 rounded-xl shadow-inner relative">
+            <button
+              onClick={() => setShowForm(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-xl font-bold"
+              title="Close Form"
+            >
+              &times;
+            </button>
+
             <h3 className="text-xl font-bold text-gray-800 mb-4">Add Timesheet Entry</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Project Dropdown */}
               <select
                 className="border p-2 rounded"
                 value={newEntry.project}
@@ -181,19 +202,17 @@ const Timesheet = () => {
                 ))}
               </select>
 
-              {/* Assigned To Dropdown */}
               <select
                 className="border p-2 rounded"
                 value={newEntry.assignedTo}
                 onChange={(e) => setNewEntry({ ...newEntry, assignedTo: e.target.value })}
               >
                 <option value="">-- Select Designation --</option>
-                {designations.map((role, idx) => (
+                {["Designer", "Developer", "Tester", "SEO", "Project Manager"].map((role, idx) => (
                   <option key={idx} value={role}>{role}</option>
                 ))}
               </select>
 
-              {/* Start DateTime */}
               <input
                 type="datetime-local"
                 className="border p-2 rounded"
@@ -201,7 +220,6 @@ const Timesheet = () => {
                 onChange={(e) => setNewEntry({ ...newEntry, startDateTime: e.target.value })}
               />
 
-              {/* End DateTime */}
               <input
                 type="datetime-local"
                 className="border p-2 rounded"
@@ -209,7 +227,6 @@ const Timesheet = () => {
                 onChange={(e) => setNewEntry({ ...newEntry, endDateTime: e.target.value })}
               />
 
-              {/* Status Dropdown */}
               <select
                 className="border p-2 rounded"
                 value={newEntry.status}
@@ -221,7 +238,6 @@ const Timesheet = () => {
                 <option value="Pending">Pending</option>
               </select>
 
-              {/* Description Textarea */}
               <textarea
                 placeholder="Project Description"
                 className="border p-2 rounded col-span-1 sm:col-span-2"
@@ -231,7 +247,6 @@ const Timesheet = () => {
               />
             </div>
 
-            {/* Form Buttons */}
             <div className="mt-6 flex justify-end space-x-4">
               <button
                 onClick={() => setShowForm(false)}

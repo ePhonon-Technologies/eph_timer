@@ -33,7 +33,16 @@ const Employees = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 p-8">
-      <div className="max-w-6xl mx-auto bg-white p-10 rounded-3xl shadow-xl">
+      <div className="max-w-6xl mx-auto bg-white p-10 rounded-3xl shadow-xl relative">
+        {/* Cross Button inside the card */}
+        <button
+          onClick={() => navigate('/admin')}
+          className="absolute top-4 right-6 text-gray-500 hover:text-red-600 text-2xl font-bold"
+          title="Close"
+        >
+          &times;
+        </button>
+
         <h2 className="text-3xl font-extrabold text-gray-800 mb-8 text-center border-b pb-4">
           👥 Employee Records
         </h2>
@@ -58,15 +67,6 @@ const Employees = () => {
             ))}
           </tbody>
         </table>
-
-        <div className="text-center">
-          <button
-            onClick={() => navigate('/admin')}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-xl shadow transition"
-          >
-            ← Go to Admin Dashboard
-          </button>
-        </div>
       </div>
     </div>
   );
